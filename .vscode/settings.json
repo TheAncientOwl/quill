@@ -1,0 +1,10 @@
+{
+  "material-icon-theme.folders.customClones": [
+    {
+      "name": "mojo-red",
+      "base": "mojo",
+      "color": "red-900",
+      "folderNames": ["quill"]
+    }
+  ]
+}
