@@ -6,7 +6,7 @@
 #
 #  @file project_config.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Configuration of Feather toolkit project
 #  @see project/templates/configs/feather-toolkit-config.json
 #
@@ -27,6 +27,14 @@ class ProjectConfig:
         with open(project_paths.get_feather_toolkit_config_path(), "r") as config_file:
             self._json_config = json.load(config_file)
 
+    def assert_key_exists(self, key, json_obj):
+        if key not in json_obj:
+            project_paths = ProjectPaths()
+            formatted_json = json.dumps(json_obj, indent=4)
+            Logger.err(
+                f"Missing config \"{key}\" key from \"{formatted_json}\" ({project_paths.get_feather_toolkit_config_path()})")
+            sys.exit(1)
+
     def get_java_file_header(self):
         self.assert_key_exists("headers", self._json_config)
         self.assert_key_exists("java", self._json_config["headers"])
@@ -39,10 +47,37 @@ class ProjectConfig:
 
         return self._json_config["headers"]["java-test"][:]
 
-    def assert_key_exists(self, key, json_obj):
-        if key not in json_obj:
-            project_paths = ProjectPaths()
-            formatted_json = json.dumps(json_obj, indent=4)
-            Logger.err(
-                f"Missing config \"{key}\" key from \"{formatted_json}\" ({project_paths.get_feather_toolkit_config_path()})")
-            sys.exit(1)
+    def get_coverage_command(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("coverage", self._json_config["commands"])
+
+        return self._json_config["commands"]["coverage"]
+
+    def get_install_command(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("install", self._json_config["commands"])
+
+        return self._json_config["commands"]["install"]
+
+    def get_install_verbose_command(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists(
+            "install-verbose", self._json_config["commands"])
+
+        return self._json_config["commands"]["install-verbose"]
+
+    def get_configure_clean_command(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("configure", self._json_config["commands"])
+        self.assert_key_exists(
+            "clean", self._json_config["commands"]["configure"])
+
+        return self._json_config["commands"]["configure"]["clean"]
+
+    def get_configure_eclipse_command(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("configure", self._json_config["commands"])
+        self.assert_key_exists(
+            "eclipse", self._json_config["commands"]["configure"])
+
+        return self._json_config["commands"]["configure"]["eclipse"]

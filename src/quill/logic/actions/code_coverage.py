@@ -6,7 +6,7 @@
 #
 #  @file code_coverage.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Run unit tests coverage
 #
 
@@ -16,6 +16,7 @@ import shutil
 import argparse
 
 from quill.common.logger import Logger
+from quill.configs.project_config import ProjectConfig
 from quill.logic.project_paths import ProjectPaths
 from quill.utils.process import Process
 
@@ -31,8 +32,9 @@ class CodeCoverage(argparse._StoreTrueAction):
 
         Logger.info("Running unit tests coverage")
 
-        Process.run_command_process(
-            ["mvn", "clean", "jacoco:prepare-agent", "install", "jacoco:report", "-Dstyle.color=always"])
+        project_config = ProjectConfig()
+
+        Process.run_command_process(project_config.get_coverage_command())
 
         paths = ProjectPaths()
         jacoco_index_html = os.path.join(paths.get_jacoco_path(), "index.html")

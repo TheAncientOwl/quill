@@ -6,7 +6,7 @@
 #
 #  @file install_verbose.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Compile the plugin and install it to the dev server
 #
 
@@ -16,6 +16,7 @@ import shutil
 import argparse
 
 from quill.common.logger import Logger
+from quill.configs.project_config import ProjectConfig
 from quill.logic.project_paths import ProjectPaths
 from quill.utils.process import Process
 
@@ -32,8 +33,7 @@ class InstallVerbose(argparse._StoreTrueAction):
         Logger.info("Verbose: ON")
         paths = ProjectPaths()
 
-        command = ["mvn", "clean", "package",
-                   "shade:shade", "-X", "-Dstyle.color=always"]
+        project_config = ProjectConfig()
 
         def clear():
             tmp_path = paths.get_feather_toolkit_tmp_path()
@@ -41,6 +41,6 @@ class InstallVerbose(argparse._StoreTrueAction):
                 shutil.rmtree(tmp_path)
 
         Process.run_command_process(
-            command=command, action_on_exit=clear, cwd=paths.get_project_root_path())
+            command=project_config.get_install_command(), action_on_exit=clear, cwd=paths.get_project_root_path())
 
         Logger.info(f"Plugin installed to {paths.get_server_plugins_path()}")

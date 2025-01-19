@@ -6,7 +6,7 @@
 #
 #  @file configure_action.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Configure maven project
 #
 
@@ -16,6 +16,7 @@ import shutil
 import argparse
 
 from quill.common.logger import Logger
+from quill.configs.project_config import ProjectConfig
 from quill.logic.project_paths import ProjectPaths
 from quill.utils.process import Process
 
@@ -31,10 +32,12 @@ class Configure(argparse._StoreTrueAction):
 
         Logger.info("Configuring project based on pom.xml")
 
-        Process.run_command_process(
-            ["mvn", "eclipse:clean", "-f", "pom.xml", "-Dstyle.color=always"])
+        project_config = ProjectConfig()
 
         Process.run_command_process(
-            ["mvn", "eclipse:eclipse", "-f", "pom.xml", "-Dstyle.color=always"])
+            project_config.get_configure_clean_command())
+
+        Process.run_command_process(
+            project_config.get_configure_eclipse_command())
 
         Logger.info("Configuration done")
