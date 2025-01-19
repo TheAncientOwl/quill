@@ -6,7 +6,7 @@
 #
 #  @file install_verbose.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Compile the plugin and install it to the dev server
 #
 
@@ -42,5 +42,17 @@ class InstallVerbose(argparse._StoreTrueAction):
 
         Process.run_command_process(
             command=project_config.get_install_command(), action_on_exit=clear, cwd=paths.get_project_root_path())
+
+        project_name = project_config.get_project_name()
+
+        src = paths.get_target_path()
+        dst = paths.get_server_plugins_path()
+
+        for file_name in os.listdir(src):
+            if file_name.endswith('.jar') and file_name.startswith(project_name):
+                src_file = os.path.join(src, file_name)
+                dst_file = os.path.join(dst, file_name)
+
+                shutil.copy2(src_file, dst_file)
 
         Logger.info(f"Plugin installed to {paths.get_server_plugins_path()}")
