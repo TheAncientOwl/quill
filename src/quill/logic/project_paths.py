@@ -6,7 +6,7 @@
 #
 #  @file project_paths.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Lightweight utility to get project paths
 #
 
@@ -54,3 +54,6 @@ class ProjectPaths:
 
     def get_feather_toolkit_config_path(self):
         return os.path.join(self.get_feather_toolkit_path(), "config.json")
+
+    def get_jacoco_resources_path(self):
+        return os.path.join(self.get_jacoco_path(), "jacoco-resources")

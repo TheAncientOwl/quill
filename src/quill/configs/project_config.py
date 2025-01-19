@@ -6,9 +6,9 @@
 #
 #  @file project_config.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Configuration of Feather toolkit project
-#  @see project/templates/configs/feather-toolkit-config.json
+#  @see project/templates/configs/feather-toolkit-config.linux.json
 #
 
 import sys
@@ -81,3 +81,8 @@ class ProjectConfig:
             "eclipse", self._json_config["commands"]["configure"])
 
         return self._json_config["commands"]["configure"]["eclipse"]
+
+    def get_coverage_resources_list_path(self):
+        self.assert_key_exists("coverage-resources-path", self._json_config)
+
+        return self._json_config["coverage-resources-path"]

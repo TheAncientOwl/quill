@@ -6,7 +6,7 @@
 #
 #  @file code_coverage.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Run unit tests coverage
 #
 
@@ -14,6 +14,7 @@ import os
 import sys
 import shutil
 import argparse
+import pathlib
 
 from quill.common.logger import Logger
 from quill.configs.project_config import ProjectConfig
@@ -34,9 +35,37 @@ class CodeCoverage(argparse._StoreTrueAction):
 
         project_config = ProjectConfig()
 
-        Process.run_command_process(project_config.get_coverage_command())
+        # Process.run_command_process(project_config.get_coverage_command())
 
         paths = ProjectPaths()
         jacoco_index_html = os.path.join(paths.get_jacoco_path(), "index.html")
+
+        config_resources_path = project_config.get_coverage_resources_list_path()
+        if len(config_resources_path) != 0:
+            resources_to_add_path = paths.get_project_root_path()
+            for path_part in config_resources_path:
+                resources_to_add_path = os.path.join(
+                    resources_to_add_path, path_part)
+
+            if not os.path.exists(resources_to_add_path):
+                Logger.err(
+                    f"Resources path does not exist {resources_to_add_path}")
+                sys.exit(1)
+
+            if not os.path.isdir(resources_to_add_path):
+                Logger.err(f"{resources_to_add_path} is not a directory")
+                sys.exit(1)
+
+            src_path = pathlib.Path(resources_to_add_path)
+            dst_path = pathlib.Path(paths.get_jacoco_resources_path())
+
+            for item in src_path.iterdir():
+                src_item = src_path / item.name
+                dst_item = dst_path / item.name
+
+                if src_item.is_dir():
+                    shutil.copytree(src_item, dst_item)
+                else:
+                    shutil.copy2(src_item, dst_item)
 
         Logger.info(f"Coverage finished, report location: {jacoco_index_html}")
