@@ -6,7 +6,7 @@
 #
 #  @file logger.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Logging utility
 #
 
@@ -22,14 +22,29 @@ class Logger:
     LIGHT_RED = "\033[91m"
     RESET = "\033[0m"
 
+    def log(message: str):
+        print(
+            f"{Logger.DARK_GRAY}[{Logger.YELLOW}Quill{Logger.DARK_GRAY}] » {Logger.RESET}{message}")
+
     def info(message: str):
-        print(f"[Info] {message}")
+        Logger.log(
+            f"{Logger.DARK_AQUA}Info{Logger.DARK_GRAY}: {Logger.DARK_AQUA}{message}{Logger.RESET}")
 
     def warn(message: str):
-        print(f"[Warning] {message}")
+        Logger.log(
+            f"{Logger.YELLOW}Warning{Logger.DARK_GRAY}: {Logger.YELLOW}{message}{Logger.RESET}")
 
     def err(message: str):
-        print(f"[Error] {message}")
+        Logger.log(
+            f"{Logger.DARK_RED}Error{Logger.DARK_GRAY}: {Logger.LIGHT_RED}{message}{Logger.RESET}")
 
     def debug(message: str):
-        print(f"[Debug] {message}")
+        Logger.log(
+            f"{Logger.DARK_GREEN}Debug{Logger.DARK_GRAY}: {Logger.LIGHT_GREEN}{message}{Logger.RESET}")
+
+
+if __name__ == "__main__":
+    Logger.info("This is info message")
+    Logger.warn("This is warn message")
+    Logger.err("This is error message")
+    Logger.debug("This is debug message")

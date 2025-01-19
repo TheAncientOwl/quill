@@ -6,7 +6,7 @@
 #
 #  @file args_manager.py
 #  @author Alexandru Delegeanu
-#  @version 0.3
+#  @version 0.4
 #  @description Arguments manager of Quill toolkit manager
 #
 
@@ -25,11 +25,12 @@ class ArgsManager:
             description="Feather Toolkit manager utility"
         )
 
+        # TODO: Fetch version from config
         self._parser.add_argument(
             "-v",
             "--version",
             action="version",
-            version="%(prog)s 0.0.2"
+            version="%(prog)s 0.0.3"
         )
         self._parser.add_argument(
             "-c",
