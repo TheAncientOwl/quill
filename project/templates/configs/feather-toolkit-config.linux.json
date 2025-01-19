@@ -29,7 +29,11 @@
     },
     "install": ["mvn", "clean", "package", "shade:shade", "-Dstyle.color=always"],
     "install-verbose": ["mvn", "clean", "package", "shade:shade", "-X", "-Dstyle.color=always"],
-    "coverage": ["mvn", "clean", "jacoco:prepare-agent", "install", "jacoco:report", "-Dstyle.color=always"]
+    "coverage": ["mvn", "clean", "jacoco:prepare-agent", "install", "jacoco:report", "-Dstyle.color=always"],
+    "test": {
+      "all": ["mvn", "test", "-Dstyle.color=always"],
+      "package": ["mvn", "-Dtest=$TEST_NAME", "test", "-Dstyle.color=always"]
+    }
   },
   "coverage-resources-path": []
 }

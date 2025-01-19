@@ -6,7 +6,7 @@
 #
 #  @file project_config.py
 #  @author Alexandru Delegeanu
-#  @version 0.3
+#  @version 0.4
 #  @description Configuration of Feather toolkit project
 #  @see project/templates/configs/feather-toolkit-config.linux.json
 #
@@ -86,3 +86,19 @@ class ProjectConfig:
         self.assert_key_exists("coverage-resources-path", self._json_config)
 
         return self._json_config["coverage-resources-path"]
+
+    def get_test_all_command(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("test", self._json_config["commands"])
+        self.assert_key_exists(
+            "all", self._json_config["commands"]["test"])
+
+        return self._json_config["commands"]["test"]["all"]
+
+    def get_test_package_command(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("test", self._json_config["commands"])
+        self.assert_key_exists(
+            "package", self._json_config["commands"]["test"])
+
+        return self._json_config["commands"]["test"]["package"]
