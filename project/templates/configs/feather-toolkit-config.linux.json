@@ -1,4 +1,5 @@
 {
+  "project": "$REPLACE_ME_PROJECT",
   "headers": {
     "java": [
       "/**",
@@ -33,6 +34,10 @@
     "test": {
       "all": ["mvn", "test", "-Dstyle.color=always"],
       "package": ["mvn", "-Dtest=$TEST_NAME", "test", "-Dstyle.color=always"]
+    },
+    "run": {
+      "pre": [[]],
+      "post": [[]]
     }
   },
   "coverage-resources-path": []
