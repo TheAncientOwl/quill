@@ -6,7 +6,7 @@
 #
 #  @file args_manager.py
 #  @author Alexandru Delegeanu
-#  @version 0.4
+#  @version 0.5
 #  @description Arguments manager of Quill toolkit manager
 #
 
@@ -74,6 +74,16 @@ class ArgsManager:
             "--headers",
             action=actions.ConfigureHeaders,
             help="configure code files"
+        )
+        self._parser.add_argument(
+            "--pre-dev-server-run",
+            action=actions.PreDevServerRun,
+            help="run pre-server-run configured commands"
+        )
+        self._parser.add_argument(
+            "--post-dev-server-run",
+            action=actions.PostDevServerRun,
+            help="run post-server-run configured commands"
         )
 
         if len(sys.argv) == 1:

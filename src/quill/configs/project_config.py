@@ -6,7 +6,7 @@
 #
 #  @file project_config.py
 #  @author Alexandru Delegeanu
-#  @version 0.4
+#  @version 0.5
 #  @description Configuration of Feather toolkit project
 #  @see project/templates/configs/feather-toolkit-config.linux.json
 #
@@ -102,3 +102,17 @@ class ProjectConfig:
             "package", self._json_config["commands"]["test"])
 
         return self._json_config["commands"]["test"]["package"]
+
+    def get_pre_server_run_commands(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("run", self._json_config["commands"])
+        self.assert_key_exists("pre", self._json_config["commands"]["run"])
+
+        return self._json_config["commands"]["run"]["pre"]
+
+    def get_post_server_run_commands(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("run", self._json_config["commands"])
+        self.assert_key_exists("post", self._json_config["commands"]["run"])
+
+        return self._json_config["commands"]["run"]["post"]
