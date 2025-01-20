@@ -6,7 +6,7 @@
 #
 #  @file run_unit_tests.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Run unit tests
 #
 
@@ -33,15 +33,26 @@ class RunUnitTests(argparse.Action):
 
         project_config = ProjectConfig()
 
+        project_paths = ProjectPaths()
+
+        def clear():
+            tmp_path = project_paths.get_feather_toolkit_tmp_path()
+            print(f"Clean {tmp_path}")
+            if os.path.exists(tmp_path):
+                shutil.rmtree(tmp_path)
+
         if values == None:
-            Process.run_command_process(project_config.get_test_all_command())
+            Process.run_command_process(
+                project_config.get_test_all_command(), action_on_fail_exit=clear)
         else:
             package = RunUnitTests.convert_path_to_package(values)
 
             command = [arg.replace("$TEST_NAME", package)
                        for arg in project_config.get_test_package_command()]
 
-            Process.run_command_process(command)
+            Process.run_command_process(command, action_on_fail_exit=clear)
+
+        clear()
 
     #
     # @brief Convert a file path to a package name by:

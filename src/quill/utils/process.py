@@ -6,7 +6,7 @@
 #
 #  @file process.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Process utilities
 #
 
@@ -16,7 +16,7 @@ import subprocess
 
 
 class Process:
-    def run_command_process(command, action_on_exit=None, exit_on_fail: bool = True, cwd=os.getcwd()) -> int:
+    def run_command_process(command, action_on_fail_exit=None, exit_on_fail: bool = True, cwd=os.getcwd()) -> int:
         process = subprocess.Popen(
             command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=cwd)
 
@@ -26,8 +26,8 @@ class Process:
         process.wait()
 
         if exit_on_fail == True and process.returncode != 0:
-            if action_on_exit != None:
-                action_on_exit()
+            if action_on_fail_exit != None:
+                action_on_fail_exit()
             sys.exit(process.returncode)
 
         return process.returncode

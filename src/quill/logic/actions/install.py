@@ -6,7 +6,7 @@
 #
 #  @file install.py
 #  @author Alexandru Delegeanu
-#  @version 0.3
+#  @version 0.4
 #  @description Compile the plugin and install it to the dev server
 #
 
@@ -40,7 +40,9 @@ class Install(argparse._StoreTrueAction):
                 shutil.rmtree(tmp_path)
 
         Process.run_command_process(
-            command=project_config.get_install_command(), action_on_exit=clear, cwd=paths.get_project_root_path())
+            command=project_config.get_install_command(), action_on_fail_exit=clear, cwd=paths.get_project_root_path())
+
+        clear()
 
         project_name = project_config.get_project_name()
 
