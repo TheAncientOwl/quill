@@ -6,7 +6,7 @@
 #
 #  @file code_coverage.py
 #  @author Alexandru Delegeanu
-#  @version 0.3
+#  @version 0.4
 #  @description Run unit tests coverage
 #
 
@@ -35,7 +35,7 @@ class CodeCoverage(argparse._StoreTrueAction):
 
         project_config = ProjectConfig()
 
-        # Process.run_command_process(project_config.get_coverage_command())
+        Process.run_command_process(project_config.get_coverage_command())
 
         paths = ProjectPaths()
         jacoco_index_html = os.path.join(paths.get_jacoco_path(), "index.html")
