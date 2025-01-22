@@ -6,7 +6,7 @@
 #
 #  @file code_coverage.py
 #  @author Alexandru Delegeanu
-#  @version 0.4
+#  @version 0.5
 #  @description Run unit tests coverage
 #
 
@@ -34,8 +34,18 @@ class CodeCoverage(argparse._StoreTrueAction):
         Logger.info("Running unit tests coverage")
 
         project_config = ProjectConfig()
+        project_paths = ProjectPaths()
 
-        Process.run_command_process(project_config.get_coverage_command())
+        def clear():
+            tmp_path = project_paths.get_feather_toolkit_tmp_path()
+            print(f"Clean {tmp_path}")
+            if os.path.exists(tmp_path):
+                shutil.rmtree(tmp_path)
+
+        Process.run_command_process(
+            project_config.get_coverage_command(), action_on_fail_exit=clear)
+
+        clear()
 
         paths = ProjectPaths()
         jacoco_index_html = os.path.join(paths.get_jacoco_path(), "index.html")
