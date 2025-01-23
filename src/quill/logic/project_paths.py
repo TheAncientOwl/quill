@@ -6,7 +6,7 @@
 #
 #  @file project_paths.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Lightweight utility to get project paths
 #
 
@@ -41,7 +41,7 @@ class ProjectPaths:
         return os.path.join(self.get_server_path(), "plugins")
 
     def get_feather_toolkit_tmp_path(self):
-        return os.path.join(os.path.expanduser("~"), "feathercore-tmp")
+        return os.path.join(os.path.expanduser("~"), "tmp-feather-toolkit")
 
     def get_target_path(self):
         return os.path.join(self._project_root, "target")
