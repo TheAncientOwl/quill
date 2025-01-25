@@ -6,7 +6,7 @@
 #
 #  @file args_manager.py
 #  @author Alexandru Delegeanu
-#  @version 0.5
+#  @version 0.6
 #  @description Arguments manager of Quill toolkit manager
 #
 
@@ -84,6 +84,13 @@ class ArgsManager:
             "--post-dev-server-run",
             action=actions.PostDevServerRun,
             help="run post-server-run configured commands"
+        )
+        self._parser.add_argument(
+            "-it",
+            "--install-toolkit",
+            nargs=1,
+            action=actions.InstallToolkit,
+            help="install feather toolkit lib"
         )
 
         if len(sys.argv) == 1:
