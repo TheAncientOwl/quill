@@ -6,7 +6,7 @@
 #
 #  @file generate_release_notes.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Configure maven project
 #
 
@@ -26,19 +26,19 @@ class GenerateReleaseNotes(argparse._StoreTrueAction):
         setattr(namespace, self.dest, True)
 
         last_tag = subprocess.check_output(
-            ['git', 'describe', '--tags', '--abbrev=0']).decode('utf-8').strip()
+            ["git", "describe", "--tags", "--abbrev=0"]).decode("utf-8").strip()
 
         previous_tag = subprocess.check_output(
-            ['git', 'describe', '--tags', '--abbrev=0', f'{last_tag}^']).decode('utf-8').strip()
+            ["git", "describe", "--tags", "--abbrev=0", f"{last_tag}^"]).decode("utf-8").strip()
 
         Logger.info(f"Last tag: {last_tag}")
         Logger.info(f"Previous tag: {previous_tag}")
 
         git_log_command = [
-            'git', 'log', '--graph', '--pretty=format:%C(auto)%h - %C(bold blue)[%an](https://github.com/%an)%C(reset)%C(auto)%d %C(white)%s%C(reset)',
-            '--abbrev-commit', f'{previous_tag}..{last_tag}'
+            "git", "log", "--pretty=format:* %C(auto)%h - %C(bold blue)[%an](https://github.com/%an)%C(reset)%C(auto)%d %C(white)%s%C(reset)", "--no-decorate",
+            "--abbrev-commit", f"{previous_tag}..{last_tag}"
         ]
 
-        git_log = subprocess.check_output(git_log_command).decode('utf-8')
+        git_log = subprocess.check_output(git_log_command).decode("utf-8")
 
         Logger.info(f"Release notes:\n{git_log}")
