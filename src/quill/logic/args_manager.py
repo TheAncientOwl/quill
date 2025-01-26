@@ -6,7 +6,7 @@
 #
 #  @file args_manager.py
 #  @author Alexandru Delegeanu
-#  @version 0.11
+#  @version 0.12
 #  @description Arguments manager of Quill toolkit manager
 #
 
@@ -48,7 +48,7 @@ class ArgsManager:
             "-v",
             "--version",
             action="version",
-            version="%(prog)s 0.0.3"
+            version="%(prog)s v1.0.0"
         )
         self._parser.add_argument(
             "-c",
