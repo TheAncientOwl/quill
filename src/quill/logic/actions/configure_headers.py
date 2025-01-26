@@ -6,7 +6,7 @@
 #
 #  @file configure_headers.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Add headers to new files
 #
 
@@ -36,16 +36,26 @@ class ConfigureHeaders(argparse._StoreTrueAction):
     def __call__(self, parser, namespace, values, option_string=None):
         setattr(namespace, self.dest, True)
 
+        Logger.info("Configuring file headers")
+
         project_paths = ProjectPaths()
         project_config = ProjectConfig()
 
         java_files = ConfigureHeaders.get_all_java_files(
             project_paths.get_project_root_path())
 
-        ConfigureHeaders.add_headers(
+        headers_count = 0
+
+        headers_count = headers_count + ConfigureHeaders.add_headers(
             java_files.java, project_config.get_java_file_header())
-        ConfigureHeaders.add_headers(
+        headers_count = headers_count + ConfigureHeaders.add_headers(
             java_files.java_test, project_config.get_java_test_file_header())
+
+        if headers_count == 0:
+            Logger.info("No file headers to configure")
+        else:
+            Logger.info("Configured " + str(headers_count) +
+                        " file header" + ("" if headers_count == 1 else "s"))
 
     def get_all_java_files(path: str) -> JavaFilePaths:
         java_test_files = []
@@ -61,8 +71,10 @@ class ConfigureHeaders(argparse._StoreTrueAction):
         return JavaFilePaths(java=java_files, java_test=java_test_files)
 
     def add_headers(files=[], header=[]):
+        headers_count = 0
+
         if len(header) == 0:
-            return
+            return headers_count
 
         for file_path in files:
             content = None
@@ -75,6 +87,8 @@ class ConfigureHeaders(argparse._StoreTrueAction):
 
             if len(content) == 0 or content[0][:-1] == header[0]:
                 continue
+
+            headers_count = headers_count + 1
 
             file_header = []
 
@@ -97,3 +111,5 @@ class ConfigureHeaders(argparse._StoreTrueAction):
                 file.writelines(updated_content)
 
             Logger.info(f"Header added to {file_path}")
+
+        return headers_count
