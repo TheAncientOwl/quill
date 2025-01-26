@@ -6,7 +6,7 @@
 #
 #  @file project_config.py
 #  @author Alexandru Delegeanu
-#  @version 0.6
+#  @version 0.7
 #  @description Configuration of Feather toolkit project
 #  @see project/templates/configs/feather-toolkit-config.linux.json
 #
@@ -24,7 +24,7 @@ class ProjectConfig:
     def __init__(self):
         project_paths = ProjectPaths()
 
-        with open(project_paths.get_feather_toolkit_config_path(), "r") as config_file:
+        with open(project_paths.get_quill_config_path(), "r") as config_file:
             self._json_config = json.load(config_file)
 
     def assert_key_exists(self, key, json_obj):
@@ -32,7 +32,7 @@ class ProjectConfig:
             project_paths = ProjectPaths()
             formatted_json = json.dumps(json_obj, indent=4)
             Logger.err(
-                f"Missing config \"{key}\" key from \"{formatted_json}\" ({project_paths.get_feather_toolkit_config_path()})")
+                f"Missing config \"{key}\" key from \"{formatted_json}\" ({project_paths.get_quill_config_path()})")
             sys.exit(1)
 
     def get_java_file_header(self):
