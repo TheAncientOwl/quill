@@ -1,5 +1,5 @@
 {
-  "project": "$REPLACE_ME_PROJECT",
+  "project": "$PROJECT_NAME",
   "headers": {
     "java": [
       "/**",
@@ -48,5 +48,6 @@
       "post": [[]]
     }
   },
-  "coverage-resources-path": []
+  "coverage-resources-path": [],
+  "clean-paths": ["target/.*$PROJECT_NAME.*", "dev/server/plugins/$PROJECT_NAME.*"]
 }

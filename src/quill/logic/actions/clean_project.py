@@ -6,10 +6,11 @@
 #
 #  @file clean_project.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Run unit tests coverage
 #
 
+import re
 import os
 import sys
 import shutil
@@ -33,32 +34,34 @@ class CleanProject(argparse._StoreTrueAction):
         project_paths = ProjectPaths()
         project_config = ProjectConfig()
 
-        plugins_path = project_paths.get_server_plugins_path()
-        project_name = project_config.get_project_name()
-        Logger.info(f"Removing {project_name} files from {plugins_path}")
-        removed = False
-        for entry in os.listdir(plugins_path):
-            if not entry.startswith(project_name):
-                continue
+        clean_paths = []
 
-            path = os.path.join(plugins_path, entry)
+        clean_path_regex = re.compile(r"^(.*)/(.*)$")
 
-            if os.path.isfile(path):
-                os.remove(path)
-                removed = True
-                Logger.info(f"Removed {path}")
-            elif os.path.isdir(path):
-                removed = True
-                shutil.rmtree(path)
-                Logger.info(f"Removed {path}")
+        for path in project_config.get_clean_paths_list():
+            match = re.match(clean_path_regex, path)
 
-        if removed == False:
-            Logger.info(f"No {project_name} files to remove at {plugins_path}")
+            Logger.info(f"Checking \"{path}\"")
 
-        target_path = project_paths.get_target_path()
-        Logger.info(f"Removing {target_path}")
-        if os.path.exists(target_path):
-            shutil.rmtree(target_path)
-            Logger.info(f"Removed {target_path}")
-        else:
-            Logger.info(f"No target files to remove at {target_path}")
+            if match:
+                parent_path = os.path.join(
+                    project_paths.get_project_root_path(), match.group(1))
+                entry_regex = re.compile(match.group(2))
+
+                for entry in os.listdir(parent_path):
+                    if not re.match(entry_regex, entry):
+                        continue
+
+                    entry_path = os.path.join(parent_path, entry)
+
+                    if os.path.isfile(entry_path):
+                        os.remove(entry_path)
+                        Logger.info(f"Removed {entry_path}")
+                    elif os.path.isdir(entry_path):
+                        shutil.rmtree(entry_path)
+                        Logger.info(f"Removed {entry_path}")
+
+            else:
+                absolute_path = os.path.join(
+                    project_paths.get_project_root_path(), path)
+                Logger.warn(f"{absolute_path} is not valid directory path")

@@ -121,3 +121,8 @@ class ProjectConfig:
         self.assert_key_exists("project", self._json_config)
 
         return self._json_config["project"]
+
+    def get_clean_paths_list(self):
+        self.assert_key_exists("clean-paths", self._json_config)
+
+        return self._json_config["clean-paths"]
