@@ -6,5 +6,6 @@
       "color": "red-900",
       "folderNames": ["quill"]
     }
-  ]
+  ],
+  "java.configuration.updateBuildConfiguration": "disabled"
 }

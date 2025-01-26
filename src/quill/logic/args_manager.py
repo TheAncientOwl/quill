@@ -6,7 +6,7 @@
 #
 #  @file args_manager.py
 #  @author Alexandru Delegeanu
-#  @version 0.10
+#  @version 0.11
 #  @description Arguments manager of Quill toolkit manager
 #
 
@@ -117,6 +117,11 @@ class ArgsManager:
             "--release-notes",
             action=actions.GenerateReleaseNotes,
             help="generate git history between last 2 tags"
+        )
+        self._parser.add_argument(
+            "--init",
+            action=actions.InitProject,
+            help="initialize feather-toolkit project"
         )
 
         if len(sys.argv) == 1:

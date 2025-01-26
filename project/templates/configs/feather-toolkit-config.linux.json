@@ -1,5 +1,5 @@
 {
-  "project": "$PROJECT_NAME",
+  "project": "$TOOLKIT_PROJECT_NAME",
   "headers": {
     "java": [
       "/**",
@@ -44,10 +44,10 @@
       "package": ["mvn", "-Dtest=$TEST_NAME", "test", "-Dstyle.color=always"]
     },
     "run": {
-      "pre": [[]],
-      "post": [[]]
+      "pre": [],
+      "post": []
     }
   },
   "coverage-resources-path": [],
-  "clean-paths": ["target/.*$PROJECT_NAME.*", "dev/server/plugins/$PROJECT_NAME.*"]
+  "clean-paths": ["target/.*$TOOLKIT_PROJECT_NAME.*", "dev/server/plugins/$TOOLKIT_PROJECT_NAME.*"]
 }
