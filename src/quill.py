@@ -6,18 +6,16 @@
 #
 #  @file quill.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Entry point of Quill toolkit manager
 #
 
 import os
 
-from quill.configs.quill_config import QuillConfig
 from quill.logic.args_manager import ArgsManager
 
 
 def main():
-    quill_config = QuillConfig()
     args_manager = ArgsManager()
 
 
