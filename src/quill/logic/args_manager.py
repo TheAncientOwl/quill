@@ -6,23 +6,41 @@
 #
 #  @file args_manager.py
 #  @author Alexandru Delegeanu
-#  @version 0.7R
+#  @version 0.9
 #  @description Arguments manager of Quill toolkit manager
 #
 
 import argparse
 import sys
 
+from colorama import Fore as Color
 from quill.common.logger import Logger
 
 import quill.logic.actions as actions
 
 
+class ColoredHelpFormatter(argparse.HelpFormatter):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.colors = [Color.LIGHTWHITE_EX, Color.WHITE]
+        self.current_color_index = 0
+
+    def _format_action(self, action):
+        color = self.colors[self.current_color_index]
+        self.current_color_index = (
+            self.current_color_index + 1) % len(self.colors)
+
+        action_help = super()._format_action(action)
+        return f"{color}{action_help}{Color.RESET}"
+
+
 class ArgsManager:
     def __init__(self):
         self._parser = argparse.ArgumentParser(
-            prog="Quill",
-            description="Feather Toolkit manager utility"
+            prog=f"Quill",
+            description=f"{
+                Color.WHITE}Feather Toolkit manager utility{Color.RESET}",
+            formatter_class=ColoredHelpFormatter
         )
 
         # TODO: Fetch version from config
@@ -61,7 +79,8 @@ class ArgsManager:
             "--test",
             action=actions.RunUnitTests,
             nargs="?",
-            help="run unit tests (default test suite if no specific test is provided)"
+            help="run unit tests (default test suite if no specific test is provided)",
+            metavar=f"TEST/S"
         )
         self._parser.add_argument(
             "-k",
@@ -90,7 +109,8 @@ class ArgsManager:
             "--install-toolkit",
             nargs=1,
             action=actions.InstallToolkit,
-            help="install feather toolkit lib"
+            help=f"install feather toolkit lib",
+            metavar=f"VERSION"
         )
 
         if len(sys.argv) == 1:
