@@ -6,9 +6,9 @@
 #
 #  @file Logger.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Package with general utilities
 #
 
 from . import project_config
-from . import quill_config
+from . import tool_config

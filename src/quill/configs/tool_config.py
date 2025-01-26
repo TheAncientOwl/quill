@@ -4,9 +4,9 @@
 #  ------------------------------------------------------------------------- #
 #  @license https://github.com/TheAncientOwl/quill/blob/main/LICENSE
 #
-#  @file quill_config.py
+#  @file tool_config.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Configuration of Quill toolkit manager
 #  @see project/templates/configs/quill-config.json
 #
@@ -15,7 +15,7 @@ from quill.common.singleton import singleton
 
 
 @singleton
-class QuillConfig:
+class ToolConfig:
     def __init__(self):
         pass
 
