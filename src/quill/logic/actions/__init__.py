@@ -6,16 +6,16 @@
 #
 #  @file __init__.py
 #  @author Alexandru Delegeanu
-#  @version 0.4
+#  @version 0.5
 #  @description Package with Quill toolkit manager command actions
 #
 
 
-from .install import Install
+from .install_project import InstallProject
 from .configure import Configure
 from .clean_project import CleanProject
 from .code_coverage import CodeCoverage
-from .install_verbose import InstallVerbose
+from .install_project_verbose import InstallProjectVerbose
 from .configure_headers import ConfigureHeaders
 from .run_unit_tests import RunUnitTests
 from .pre_dev_server_run import PreDevServerRun

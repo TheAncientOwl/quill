@@ -6,7 +6,7 @@
 #
 #  @file args_manager.py
 #  @author Alexandru Delegeanu
-#  @version 0.6
+#  @version 0.7R
 #  @description Arguments manager of Quill toolkit manager
 #
 
@@ -41,13 +41,13 @@ class ArgsManager:
         self._parser.add_argument(
             "-i",
             "--install",
-            action=actions.Install,
+            action=actions.InstallProject,
             help="compile the plugin and install it to the dev server"
         )
         self._parser.add_argument(
             "-iv",
             "--install-verbose",
-            action=actions.InstallVerbose,
+            action=actions.InstallProjectVerbose,
             help="verbose output for install command"
         )
         self._parser.add_argument(

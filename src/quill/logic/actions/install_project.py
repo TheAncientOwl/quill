@@ -4,7 +4,7 @@
 #  ------------------------------------------------------------------------- #
 #  @license https://github.com/TheAncientOwl/quill/blob/main/LICENSE
 #
-#  @file install.py
+#  @file install_project.py
 #  @author Alexandru Delegeanu
 #  @version 0.4
 #  @description Compile the plugin and install it to the dev server
@@ -21,7 +21,7 @@ from quill.logic.project_paths import ProjectPaths
 from quill.utils.process import Process
 
 
-class Install(argparse._StoreTrueAction):
+class InstallProject(argparse._StoreTrueAction):
     def __init__(self, option_strings, dest, nargs=None, **kwargs):
         if nargs is not None:
             raise ValueError("nargs not allowed")
