@@ -6,7 +6,7 @@
 #
 #  @file code_coverage.py
 #  @author Alexandru Delegeanu
-#  @version 0.5
+#  @version 0.6
 #  @description Run unit tests coverage
 #
 
@@ -58,12 +58,12 @@ class CodeCoverage(argparse._StoreTrueAction):
                     resources_to_add_path, path_part)
 
             if not os.path.exists(resources_to_add_path):
-                Logger.err(
+                Logger.error(
                     f"Resources path does not exist {resources_to_add_path}")
                 sys.exit(1)
 
             if not os.path.isdir(resources_to_add_path):
-                Logger.err(f"{resources_to_add_path} is not a directory")
+                Logger.error(f"{resources_to_add_path} is not a directory")
                 sys.exit(1)
 
             src_path = pathlib.Path(resources_to_add_path)

@@ -6,7 +6,7 @@
 #
 #  @file project_config.py
 #  @author Alexandru Delegeanu
-#  @version 0.7
+#  @version 0.8
 #  @description Configuration of Feather toolkit project
 #  @see project/templates/configs/feather-toolkit-config.linux.json
 #
@@ -31,7 +31,7 @@ class ProjectConfig:
         if key not in json_obj:
             project_paths = ProjectPaths()
             formatted_json = json.dumps(json_obj, indent=4)
-            Logger.err(
+            Logger.error(
                 f"Missing config \"{key}\" key from \"{formatted_json}\" ({project_paths.get_quill_config_path()})")
             sys.exit(1)
 

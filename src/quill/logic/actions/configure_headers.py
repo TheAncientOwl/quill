@@ -6,7 +6,7 @@
 #
 #  @file configure_headers.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Add headers to new files
 #
 
@@ -82,7 +82,7 @@ class ConfigureHeaders(argparse._StoreTrueAction):
                 with open(file_path, 'r') as file:
                     content = file.readlines()
             except Exception as e:
-                Logger.err(f"Error processing {file_path}: {e}")
+                Logger.error(f"Error processing {file_path}: {e}")
                 sys.exit(1)
 
             if len(content) == 0 or content[0][:-1] == header[0]:

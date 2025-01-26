@@ -6,7 +6,7 @@
 #
 #  @file install_toolkit.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Compile the plugin and install it to the dev server
 #
 
@@ -59,17 +59,17 @@ class InstallToolkit(argparse._StoreAction):
 
         except requests.exceptions.HTTPError as e:
             # For 404, 403, 500 errors, etc.
-            Logger.err(f'HTTP error occurred: {e}')
+            Logger.error(f'HTTP error occurred: {e}')
             clear()
             sys.exit(1)
         except requests.exceptions.RequestException as e:
             # For other request-related issues
-            Logger.err(f'Request error occurred: {e}')
+            Logger.error(f'Request error occurred: {e}')
             clear()
             sys.exit(1)
         except Exception as e:
             # For other unexpected errors (e.g., file write errors)
-            Logger.err(f'An error occurred: {e}')
+            Logger.error(f'An error occurred: {e}')
             clear()
             sys.exit(1)
 

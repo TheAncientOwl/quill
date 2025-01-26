@@ -6,45 +6,48 @@
 #
 #  @file logger.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Logging utility
 #
 
-class Logger:
-    DARK_RED = "\033[31m"
+from colorama import Fore as Color
 
-    DARK_GREEN = "\033[32m"
-    YELLOW = "\033[93m"
-    DARK_GRAY = "\033[90m"
-    LIGHT_GRAY = "\033[37m"
-    LIGHT_GREEN = "\033[92m"
-    DARK_AQUA = "\033[36m"
-    LIGHT_RED = "\033[91m"
-    RESET = "\033[0m"
+
+class Logger:
+    Color = Color
+    BOLD = "\033[1m"
+    NORMAL = "\033[0m"
 
     def log(message: str):
-        print(
-            f"{Logger.DARK_GRAY}[{Logger.YELLOW}Quill{Logger.DARK_GRAY}] » {Logger.RESET}{message}")
+        print(f"{Logger.BOLD}{Color.LIGHTBLACK_EX}[{Color.LIGHTYELLOW_EX}Quill{
+              Color.LIGHTBLACK_EX}] » {Logger.NORMAL}{Color.RESET}{message}")
 
     def info(message: str):
-        Logger.log(
-            f"{Logger.DARK_AQUA}Info{Logger.DARK_GRAY}: {Logger.DARK_AQUA}{message}{Logger.RESET}")
+        level = Logger.format_level(f"{Color.LIGHTBLUE_EX}Info")
+        Logger.log(f"{level}{Color.LIGHTBLACK_EX}: {
+                   Color.LIGHTBLUE_EX}{message}{Color.RESET}")
 
     def warn(message: str):
+        level = Logger.format_level(f"{Color.YELLOW}Warning")
         Logger.log(
-            f"{Logger.YELLOW}Warning{Logger.DARK_GRAY}: {Logger.YELLOW}{message}{Logger.RESET}")
+            f"{level}{Color.LIGHTBLACK_EX}: {Color.YELLOW}{message}{Color.RESET}")
 
-    def err(message: str):
+    def error(message: str):
+        level = Logger.format_level(f"{Color.LIGHTRED_EX}Error")
         Logger.log(
-            f"{Logger.DARK_RED}Error{Logger.DARK_GRAY}: {Logger.LIGHT_RED}{message}{Logger.RESET}")
+            f"{level}{Color.LIGHTBLACK_EX}: {Color.LIGHTRED_EX}{message}{Color.RESET}")
 
     def debug(message: str):
+        level = Logger.format_level(f"{Color.LIGHTGREEN_EX}Debug")
         Logger.log(
-            f"{Logger.DARK_GREEN}Debug{Logger.DARK_GRAY}: {Logger.LIGHT_GREEN}{message}{Logger.RESET}")
+            f"{level}{Color.LIGHTBLACK_EX}: {Color.LIGHTGREEN_EX}{message}{Color.RESET}")
+
+    def format_level(level: str):
+        return f"{Logger.BOLD}{level}{Logger.NORMAL}{Color.RESET}"
 
 
 if __name__ == "__main__":
     Logger.info("This is info message")
     Logger.warn("This is warn message")
-    Logger.err("This is error message")
+    Logger.error("This is error message")
     Logger.debug("This is debug message")
