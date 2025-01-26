@@ -6,7 +6,7 @@
 #
 #  @file __init__.py
 #  @author Alexandru Delegeanu
-#  @version 0.5
+#  @version 0.6
 #  @description Package with Quill toolkit manager command actions
 #
 
@@ -21,3 +21,4 @@ from .run_unit_tests import RunUnitTests
 from .pre_dev_server_run import PreDevServerRun
 from .post_dev_server_run import PostDevServerRun
 from .install_toolkit import InstallToolkit
+from .generate_release_notes import GenerateReleaseNotes
