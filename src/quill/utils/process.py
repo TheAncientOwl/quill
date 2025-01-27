@@ -6,7 +6,7 @@
 #
 #  @file process.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Process utilities
 #
 
@@ -16,9 +16,12 @@ import subprocess
 
 
 class Process:
-    def run_command_process(command, action_on_fail_exit=None, exit_on_fail: bool = True, cwd=os.getcwd()) -> int:
+    def run_command_process(
+        command, action_on_fail_exit=None, exit_on_fail: bool = True, cwd=os.getcwd()
+    ) -> int:
         process = subprocess.Popen(
-            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=cwd)
+            command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=cwd
+        )
 
         for line in process.stdout:
             print(line, end="")

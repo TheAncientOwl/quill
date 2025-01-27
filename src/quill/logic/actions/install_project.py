@@ -6,7 +6,7 @@
 #
 #  @file install_project.py
 #  @author Alexandru Delegeanu
-#  @version 0.4
+#  @version 0.5
 #  @description Compile the plugin and install it to the dev server
 #
 
@@ -40,7 +40,10 @@ class InstallProject(argparse._StoreTrueAction):
                 shutil.rmtree(tmp_path)
 
         Process.run_command_process(
-            command=project_config.get_install_command(), action_on_fail_exit=clear, cwd=paths.get_project_root_path())
+            command=project_config.get_install_command(),
+            action_on_fail_exit=clear,
+            cwd=paths.get_project_root_path(),
+        )
 
         clear()
 
@@ -50,7 +53,7 @@ class InstallProject(argparse._StoreTrueAction):
         dst = paths.get_server_plugins_path()
 
         for file_name in os.listdir(src):
-            if file_name.endswith('.jar') and file_name.startswith(project_name):
+            if file_name.endswith(".jar") and file_name.startswith(project_name):
                 src_file = os.path.join(src, file_name)
                 dst_file = os.path.join(dst, file_name)
 

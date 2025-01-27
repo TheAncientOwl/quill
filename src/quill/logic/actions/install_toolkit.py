@@ -6,7 +6,7 @@
 #
 #  @file install_toolkit.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Compile the plugin and install it to the dev server
 #
 
@@ -45,31 +45,30 @@ class InstallToolkit(argparse._StoreAction):
 
         feather_toolkit_github_url = f"https://github.com/TheAncientOwl/feather-toolkit/releases/download/{
             version}/FeatherToolkit-{version}.jar"
-        feather_toolkit_jar = os.path.join(
-            tmp_path, f"FeatherToolkit-{version}.jar")
+        feather_toolkit_jar = os.path.join(tmp_path, f"FeatherToolkit-{version}.jar")
 
         try:
             with requests.get(feather_toolkit_github_url, stream=True) as response:
                 response.raise_for_status()
 
-                with open(feather_toolkit_jar, 'wb') as file:
+                with open(feather_toolkit_jar, "wb") as file:
                     shutil.copyfileobj(response.raw, file)
 
-            Logger.info(f'Downloaded FeatherCore-{version}.jar')
+            Logger.info(f"Downloaded FeatherCore-{version}.jar")
 
         except requests.exceptions.HTTPError as e:
             # For 404, 403, 500 errors, etc.
-            Logger.error(f'HTTP error occurred: {e}')
+            Logger.error(f"HTTP error occurred: {e}")
             clear()
             sys.exit(1)
         except requests.exceptions.RequestException as e:
             # For other request-related issues
-            Logger.error(f'Request error occurred: {e}')
+            Logger.error(f"Request error occurred: {e}")
             clear()
             sys.exit(1)
         except Exception as e:
             # For other unexpected errors (e.g., file write errors)
-            Logger.error(f'An error occurred: {e}')
+            Logger.error(f"An error occurred: {e}")
             clear()
             sys.exit(1)
 
@@ -78,8 +77,16 @@ class InstallToolkit(argparse._StoreAction):
 
         Process.run_command_process(
             command=[
-                "mvn", "install:install-file", f"-Dfile={feather_toolkit_jar}", f"-DgroupId={group_id}", f"-DartifactId={artifact_id}", f"-Dversion={version}", "-Dpackaging=jar"],
-            action_on_fail_exit=clear)
+                "mvn",
+                "install:install-file",
+                f"-Dfile={feather_toolkit_jar}",
+                f"-DgroupId={group_id}",
+                f"-DartifactId={artifact_id}",
+                f"-Dversion={version}",
+                "-Dpackaging=jar",
+            ],
+            action_on_fail_exit=clear,
+        )
 
         clear()
 

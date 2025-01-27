@@ -6,7 +6,7 @@
 #
 #  @file pre_dev_server_run.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Run configured pre-server-run commands
 #
 
@@ -39,8 +39,10 @@ class PreDevServerRun(argparse._StoreTrueAction):
 
         for command in commands:
             if len(commands) != 0:
-                final_command = [part.replace("$PROJECT_ROOT", project_paths.get_project_root_path())
-                                 for part in command]
+                final_command = [
+                    part.replace("$PROJECT_ROOT", project_paths.get_project_root_path())
+                    for part in command
+                ]
                 if command != final_command:
                     Logger.info(f"[Running] {command} =~ {final_command}")
                 else:

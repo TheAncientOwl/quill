@@ -6,7 +6,7 @@
 #
 #  @file configure_action.py
 #  @author Alexandru Delegeanu
-#  @version 0.2
+#  @version 0.3
 #  @description Configure maven project
 #
 
@@ -34,10 +34,8 @@ class Configure(argparse._StoreTrueAction):
 
         project_config = ProjectConfig()
 
-        Process.run_command_process(
-            project_config.get_configure_clean_command())
+        Process.run_command_process(project_config.get_configure_clean_command())
 
-        Process.run_command_process(
-            project_config.get_configure_eclipse_command())
+        Process.run_command_process(project_config.get_configure_eclipse_command())
 
         Logger.info("Configuration done")

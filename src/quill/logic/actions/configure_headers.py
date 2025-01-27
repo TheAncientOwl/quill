@@ -6,7 +6,7 @@
 #
 #  @file configure_headers.py
 #  @author Alexandru Delegeanu
-#  @version 0.3
+#  @version 0.4
 #  @description Add headers to new files
 #
 
@@ -42,20 +42,27 @@ class ConfigureHeaders(argparse._StoreTrueAction):
         project_config = ProjectConfig()
 
         java_files = ConfigureHeaders.get_all_java_files(
-            project_paths.get_project_root_path())
+            project_paths.get_project_root_path()
+        )
 
         headers_count = 0
 
         headers_count = headers_count + ConfigureHeaders.add_headers(
-            java_files.java, project_config.get_java_file_header())
+            java_files.java, project_config.get_java_file_header()
+        )
         headers_count = headers_count + ConfigureHeaders.add_headers(
-            java_files.java_test, project_config.get_java_test_file_header())
+            java_files.java_test, project_config.get_java_test_file_header()
+        )
 
         if headers_count == 0:
             Logger.info("No file headers to configure")
         else:
-            Logger.info("Configured " + str(headers_count) +
-                        " file header" + ("" if headers_count == 1 else "s"))
+            Logger.info(
+                "Configured "
+                + str(headers_count)
+                + " file header"
+                + ("" if headers_count == 1 else "s")
+            )
 
     def get_all_java_files(path: str) -> JavaFilePaths:
         java_test_files = []
@@ -79,7 +86,7 @@ class ConfigureHeaders(argparse._StoreTrueAction):
         for file_path in files:
             content = None
             try:
-                with open(file_path, 'r') as file:
+                with open(file_path, "r") as file:
                     content = file.readlines()
             except Exception as e:
                 Logger.error(f"Error processing {file_path}: {e}")
@@ -93,21 +100,23 @@ class ConfigureHeaders(argparse._StoreTrueAction):
             file_header = []
 
             file_name = os.path.basename(file_path)
-            non_test_base_file_name = file_name[:-
-                                                9] if file_name.endswith("Test.java") else None
+            non_test_base_file_name = (
+                file_name[:-9] if file_name.endswith("Test.java") else None
+            )
 
             for header_line in header:
                 new_line = header_line + "\n"
                 new_line = new_line.replace("$FILE_NAME", file_name)
                 if non_test_base_file_name != None:
                     new_line = new_line.replace(
-                        "$NON_TEST_BASE_FILE_NAME", non_test_base_file_name)
+                        "$NON_TEST_BASE_FILE_NAME", non_test_base_file_name
+                    )
 
                 file_header.append(new_line)
 
             updated_content = file_header + content
 
-            with open(file_path, 'w') as file:
+            with open(file_path, "w") as file:
                 file.writelines(updated_content)
 
             Logger.info(f"Header added to {file_path}")

@@ -6,9 +6,10 @@
 #
 #  @file singleton.py
 #  @author Alexandru Delegeanu
-#  @version 0.1
+#  @version 0.2
 #  @description Singleton decorator
 #
+
 
 def singleton(cls):
     instances = {}

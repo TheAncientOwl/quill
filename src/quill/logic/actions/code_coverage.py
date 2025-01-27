@@ -6,7 +6,7 @@
 #
 #  @file code_coverage.py
 #  @author Alexandru Delegeanu
-#  @version 0.6
+#  @version 0.7
 #  @description Run unit tests coverage
 #
 
@@ -43,7 +43,8 @@ class CodeCoverage(argparse._StoreTrueAction):
                 shutil.rmtree(tmp_path)
 
         Process.run_command_process(
-            project_config.get_coverage_command(), action_on_fail_exit=clear)
+            project_config.get_coverage_command(), action_on_fail_exit=clear
+        )
 
         clear()
 
@@ -54,12 +55,10 @@ class CodeCoverage(argparse._StoreTrueAction):
         if len(config_resources_path) != 0:
             resources_to_add_path = paths.get_project_root_path()
             for path_part in config_resources_path:
-                resources_to_add_path = os.path.join(
-                    resources_to_add_path, path_part)
+                resources_to_add_path = os.path.join(resources_to_add_path, path_part)
 
             if not os.path.exists(resources_to_add_path):
-                Logger.error(
-                    f"Resources path does not exist {resources_to_add_path}")
+                Logger.error(f"Resources path does not exist {resources_to_add_path}")
                 sys.exit(1)
 
             if not os.path.isdir(resources_to_add_path):

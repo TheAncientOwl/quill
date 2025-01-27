@@ -6,7 +6,7 @@
 #
 #  @file clean_project.py
 #  @author Alexandru Delegeanu
-#  @version 0.3
+#  @version 0.4
 #  @description Run unit tests coverage
 #
 
@@ -41,11 +41,12 @@ class CleanProject(argparse._StoreTrueAction):
         for path in project_config.get_clean_paths_list():
             match = re.match(clean_path_regex, path)
 
-            Logger.info(f"Checking \"{path}\"")
+            Logger.info(f'Checking "{path}"')
 
             if match:
                 parent_path = os.path.join(
-                    project_paths.get_project_root_path(), match.group(1))
+                    project_paths.get_project_root_path(), match.group(1)
+                )
                 entry_regex = re.compile(match.group(2))
 
                 for entry in os.listdir(parent_path):
@@ -63,5 +64,6 @@ class CleanProject(argparse._StoreTrueAction):
 
             else:
                 absolute_path = os.path.join(
-                    project_paths.get_project_root_path(), path)
+                    project_paths.get_project_root_path(), path
+                )
                 Logger.warn(f"{absolute_path} is not valid directory path")

@@ -6,7 +6,7 @@
 #
 #  @file project_paths.py
 #  @author Alexandru Delegeanu
-#  @version 0.4
+#  @version 0.5
 #  @description Lightweight utility to get project paths
 #
 
@@ -17,14 +17,15 @@ from quill.common.logger import Logger
 
 class ProjectPaths:
     def load_env_project_root(warn_when_toolkit_root_not_set: bool):
-        project_root = os.getenv(
-            "FEATHER_TOOLKIT_PROJECT_ROOT")
+        project_root = os.getenv("FEATHER_TOOLKIT_PROJECT_ROOT")
 
         if project_root == None:
             project_root = os.getcwd()
             if warn_when_toolkit_root_not_set:
                 Logger.warn(
-                    "FEATHER_TOOLKIT_PROJECT_ROOT env variable was not set, using " + project_root)
+                    "FEATHER_TOOLKIT_PROJECT_ROOT env variable was not set, using "
+                    + project_root
+                )
 
         return project_root
 
