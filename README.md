@@ -62,3 +62,9 @@ Example of using Quill for developing feather-toolkit paper-spigot plugins can b
 ## 📜 License
 
 This project is licensed under the **MIT License**. See the [LICENSE](https://github.com/TheAncientOwl/quill/blob/main/LICENSE) file for details.
+
+## 🔗 Related Projects
+
+- [🪶 FeatherCore](https://github.com/TheAncientOwl/feather-core)
+- [🪶 FeatherToolkit](https://github.com/TheAncientOwl/feather-toolkit)
+- [🪶 FeatherShowcase](https://github.com/TheAncientOwl/feather-showcase)
