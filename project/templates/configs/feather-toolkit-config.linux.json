@@ -48,6 +48,6 @@
       "post": []
     }
   },
-  "coverage-resources-path": [],
+  "coverage-resources-path": ["project", "coverage", "resources"],
   "clean-paths": ["target/.*$TOOLKIT_PROJECT_NAME.*", "dev/server/plugins/$TOOLKIT_PROJECT_NAME.*"]
 }
