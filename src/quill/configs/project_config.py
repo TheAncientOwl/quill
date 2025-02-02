@@ -6,7 +6,7 @@
 #
 #  @file project_config.py
 #  @author Alexandru Delegeanu
-#  @version 0.8
+#  @version 0.9
 #  @description Configuration of Feather toolkit project
 #  @see project/templates/configs/feather-toolkit-config.linux.json
 #
@@ -32,7 +32,8 @@ class ProjectConfig:
             project_paths = ProjectPaths()
             formatted_json = json.dumps(json_obj, indent=4)
             Logger.error(
-                f"Missing config \"{key}\" key from \"{formatted_json}\" ({project_paths.get_quill_config_path()})")
+                f'Missing config "{key}" key from "{formatted_json}" ({project_paths.get_quill_config_path()})'
+            )
             sys.exit(1)
 
     def get_java_file_header(self):
@@ -61,24 +62,21 @@ class ProjectConfig:
 
     def get_install_verbose_command(self):
         self.assert_key_exists("commands", self._json_config)
-        self.assert_key_exists(
-            "install-verbose", self._json_config["commands"])
+        self.assert_key_exists("install-verbose", self._json_config["commands"])
 
         return self._json_config["commands"]["install-verbose"]
 
     def get_configure_clean_command(self):
         self.assert_key_exists("commands", self._json_config)
         self.assert_key_exists("configure", self._json_config["commands"])
-        self.assert_key_exists(
-            "clean", self._json_config["commands"]["configure"])
+        self.assert_key_exists("clean", self._json_config["commands"]["configure"])
 
         return self._json_config["commands"]["configure"]["clean"]
 
     def get_configure_eclipse_command(self):
         self.assert_key_exists("commands", self._json_config)
         self.assert_key_exists("configure", self._json_config["commands"])
-        self.assert_key_exists(
-            "eclipse", self._json_config["commands"]["configure"])
+        self.assert_key_exists("eclipse", self._json_config["commands"]["configure"])
 
         return self._json_config["commands"]["configure"]["eclipse"]
 
@@ -90,18 +88,23 @@ class ProjectConfig:
     def get_test_all_command(self):
         self.assert_key_exists("commands", self._json_config)
         self.assert_key_exists("test", self._json_config["commands"])
-        self.assert_key_exists(
-            "all", self._json_config["commands"]["test"])
+        self.assert_key_exists("all", self._json_config["commands"]["test"])
 
         return self._json_config["commands"]["test"]["all"]
 
     def get_test_package_command(self):
         self.assert_key_exists("commands", self._json_config)
         self.assert_key_exists("test", self._json_config["commands"])
-        self.assert_key_exists(
-            "package", self._json_config["commands"]["test"])
+        self.assert_key_exists("package", self._json_config["commands"]["test"])
 
         return self._json_config["commands"]["test"]["package"]
+
+    def get_test_file_command(self):
+        self.assert_key_exists("commands", self._json_config)
+        self.assert_key_exists("test", self._json_config["commands"])
+        self.assert_key_exists("file", self._json_config["commands"]["test"])
+
+        return self._json_config["commands"]["test"]["file"]
 
     def get_pre_server_run_commands(self):
         self.assert_key_exists("commands", self._json_config)

@@ -6,7 +6,7 @@
 #
 #  @file run_unit_tests.py
 #  @author Alexandru Delegeanu
-#  @version 0.3
+#  @version 0.4
 #  @description Run unit tests
 #
 
@@ -48,10 +48,13 @@ class RunUnitTests(argparse.Action):
         else:
             package = RunUnitTests.convert_path_to_package(values)
 
-            command = [
-                arg.replace("$TEST_NAME", package)
-                for arg in project_config.get_test_package_command()
-            ]
+            cmd = (
+                project_config.get_test_file_command()
+                if package.endswith(".java")
+                else project_config.get_test_package_command()
+            )
+
+            command = [arg.replace("$TEST_NAME", package) for arg in cmd]
 
             Process.run_command_process(command, action_on_fail_exit=clear)
 
@@ -68,9 +71,6 @@ class RunUnitTests(argparse.Action):
     def convert_path_to_package(path: str) -> str:
         if path.endswith("/"):
             path = path[:-1]
-
-        if path.endswith(".java"):
-            path = path[:-5]
 
         if path.startswith("src/test/java/"):
             path = path[len("src/test/java/") :]
